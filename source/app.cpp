@@ -21,4 +21,10 @@ int main() {
 
     py::print("Hello, from embedded Python!"); // use the Python API
 
+
+    // append source dir to sys.path, and python interpreter would find your custom python file
+    py::module_ sys = py::module_::import("sys");
+    py::list path = sys.attr("path");
+    py::print(path);
+    path.attr("append")("..");
 }
