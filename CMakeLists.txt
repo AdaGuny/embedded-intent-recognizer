@@ -10,7 +10,6 @@ find_package(Python COMPONENTS Interpreter Development)
 
 # pybind11
 add_subdirectory(${EXTERNALS}/pybind11)
-#add_subdirectory(${EXTERNALS}/scripts)
 
 
 # app
