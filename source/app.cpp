@@ -28,15 +28,17 @@ int main() {
     py::print(path);
     path.attr("append")("..");
 
-    // import python function from module
-    // .py file has to be in the working directory 
-    // check last line of cmake, it copies file to the working directory
-    py::function find_intent = py::module::import("model").attr("find_intent");
-    
-    // save the result of user input 
-    py::object intent = find_intent(user_input);  // automatic conversion from `std::string` 
-    
-    // print intent
-    py::print(intent); // print intent 
 
+    // borrow a python function from python file 
+
+    py::function find_intent = py::module::import("model").attr("find_intent");
+    /*py::function find_intent =
+        py::reinterpret_borrow<py::function>( // cast from 'object' to 'function - use `borrow` (copy) or `steal` (move)
+            py::module::import("model").attr("find_intent") // import method "find_intent" from python "module"
+            );
+    */
+
+    // send user_input to borrowed python function
+    py::object result = find_intent(user_input);  // automatic conversion from `std::string` 
+    py::print(result); // print intent 
 }
