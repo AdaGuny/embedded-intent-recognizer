@@ -3,7 +3,7 @@ project("console_intent")
 set(CMAKE_CXX_STANDARD 17)
 
 set(APP_SOURCE "${PROJECT_SOURCE_DIR}/source")
-set(EXTERNALS "${PROJECT_SOURCE_DIR}/externals")
+set(EXTERNALS "${PROJECT_SOURCE_DIR}/external")
 
 find_package(Python COMPONENTS Interpreter Development)
 
