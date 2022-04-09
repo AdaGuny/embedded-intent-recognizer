@@ -72,9 +72,7 @@ def find_intent(input_text):
     
     # Predict intent
     prediction = mt_forest.predict(features)[0]
-    print("prediction")
     
     intent = list(binarizer.inverse_transform(prediction.reshape(1, -1)))
-    print("intent")
 
     return intent
