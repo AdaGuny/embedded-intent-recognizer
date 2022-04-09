@@ -25,7 +25,7 @@ int main() {
     // append source dir to sys.path, and python interpreter would find your custom python file
     py::module_ sys = py::module_::import("sys");
     py::list path = sys.attr("path");
-    py::print(path);
+    // py::print(path);
     path.attr("append")("..");
 
     // load the python function from module 
