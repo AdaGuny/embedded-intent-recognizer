@@ -5,12 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(APP_SOURCE "${PROJECT_SOURCE_DIR}/source")
 set(EXTERNALS "${PROJECT_SOURCE_DIR}/externals")
 
-
 find_package(Python COMPONENTS Interpreter Development)
 
 # pybind11
 add_subdirectory(${EXTERNALS}/pybind11)
-
 
 # app
 add_executable (
