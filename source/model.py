@@ -60,6 +60,24 @@ def find_intent(input_text):
     # Run labels through binarizer
     b_y = binarizer.fit_transform(y)
 
-    # Fir multioutput random forest classifier
+    # For multioutput random forest classifier
     # Send cls tokens and binarized labels to train
     mt_forest.fit(features, b_y)
+
+    # User input is tokenized
+    encoded_input = tokenizer(input_text, padding=True, truncation=True, return_tensors="pt")
+
+    # Send user input to extract cls tokens
+    with torch.no_grad():
+        last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])
+
+    # Extract cls tokens from user input        
+    features = last_hidden_states[0][:,0,:].numpy()
+
+    # Predict labels using already trained multi out random forest classifier
+    prediction = mt_forest.predict(features)[0]
+
+    # Turn labels from binary values to actual labels
+    intent = list(binarizer.inverse_transform(prediction.reshape(1, -1)))
+
+    return intent
