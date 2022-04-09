@@ -38,3 +38,16 @@ def find_intent(input_text):
               ['Weather', 'City']]
 
     return intent
+
+    # At later stages we can get the information from a csv file
+    # In order to do that we have to also copy the data to the working directory
+    # Copying data could easily implementable with cmake
+
+    # Tokenize, pad and create data for 
+    encoded_input = tokenizer(X, padding=True, truncation=True, return_tensors="pt")
+    
+
+    with torch.no_grad():
+        last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])
+    print("torch")
+    features = last_hidden_states[0][:,0,:].numpy()
