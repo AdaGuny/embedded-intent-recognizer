@@ -46,8 +46,20 @@ def find_intent(input_text):
     # Tokenize, pad and create data for 
     encoded_input = tokenizer(X, padding=True, truncation=True, return_tensors="pt")
     
-
+    # Run tokenized training data in distillBERT
     with torch.no_grad():
         last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])
     print("torch")
+
+    # Save features of sentences
     features = last_hidden_states[0][:,0,:].numpy()
+
+    # Create a numpy array for labels
+    y = numpy.array(y, dtype=object)
+
+    # Run labels through binarizer
+    b_y = binarizer.fit_transform(y)
+
+    # Fir multioutput random forest classifier
+    # Send cls tokens and binarized labels to train
+    mt_forest.fit(features, b_y)
