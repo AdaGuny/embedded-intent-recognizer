@@ -36,9 +36,7 @@ def find_intent(input_text):
               ['Fact'],  
               ['Weather', 'City'], 
               ['Weather', 'City']]
-
-    return intent
-
+    
     # At later stages we can get the information from a csv file
     # In order to do that we have to also copy the data to the working directory
     # Copying data could easily implementable with cmake
@@ -46,38 +44,37 @@ def find_intent(input_text):
     # Tokenize, pad and create data for 
     encoded_input = tokenizer(X, padding=True, truncation=True, return_tensors="pt")
     
-    # Run tokenized training data in distillBERT
+    # Run train data through distillBERT model
     with torch.no_grad():
         last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])
-    print("torch")
-
-    # Save features of sentences
+    
+    # Save cls tokens of training sentences
     features = last_hidden_states[0][:,0,:].numpy()
-
-    # Create a numpy array for labels
+    
+    # Save training labels as numpy array 
     y = numpy.array(y, dtype=object)
-
-    # Run labels through binarizer
+    
+    # Binarize labels 
     b_y = binarizer.fit_transform(y)
-
-    # For multioutput random forest classifier
-    # Send cls tokens and binarized labels to train
+    
+    # Fit the multi output random forest model 
     mt_forest.fit(features, b_y)
-
-    # User input is tokenized
+    
+    # Encode user input 
     encoded_input = tokenizer(input_text, padding=True, truncation=True, return_tensors="pt")
-
-    # Send user input to extract cls tokens
+    
+    # Run user input through distillBERT model
     with torch.no_grad():
-        last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])
+        last_hidden_states = model(encoded_input['input_ids'], attention_mask=encoded_input['attention_mask'])    
 
-    # Extract cls tokens from user input        
+    # Save features of input word embeddings
     features = last_hidden_states[0][:,0,:].numpy()
-
-    # Predict labels using already trained multi out random forest classifier
+    
+    # Predict intent
     prediction = mt_forest.predict(features)[0]
-
-    # Turn labels from binary values to actual labels
+    print("prediction")
+    
     intent = list(binarizer.inverse_transform(prediction.reshape(1, -1)))
+    print("intent")
 
     return intent
