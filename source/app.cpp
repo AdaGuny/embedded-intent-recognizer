@@ -19,4 +19,6 @@ int main() {
     //Start interpreter dies at the end of scope
     py::scoped_interpreter guard{}; // start the interpreter and keep it alive
 
+    py::print("Hello, from embedded Python!"); // use the Python API
+
 }
