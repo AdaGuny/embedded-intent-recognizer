@@ -27,4 +27,16 @@ int main() {
     py::list path = sys.attr("path");
     py::print(path);
     path.attr("append")("..");
+
+    // import python function from module
+    // .py file has to be in the working directory 
+    // check last line of cmake, it copies file to the working directory
+    py::function find_intent = py::module::import("model").attr("find_intent");
+    
+    // save the result of user input 
+    py::object intent = find_intent(user_input);  // automatic conversion from `std::string` 
+    
+    // print intent
+    py::print(intent); // print intent 
+
 }
