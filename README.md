@@ -12,14 +12,14 @@ The script uses a deep-pre trained transformer architecture-based model for feat
 
 ### Dependencies
 
-Python 3.10.0
-Numpy 1.22.3
-Sklearn 1.0.2
-PyTorch 1.11.0
-Transformers 4.17.0
+* Python 3.10.0
+* Numpy 1.22.3
+* Sklearn 1.0.2
+* PyTorch 1.11.0
+* Transformers 4.17.0
 
-CMake 3.16
-Modern cpp >17
+* CMake 3.16
+* Modern cpp >17
 
 ### Installing
 
@@ -50,12 +50,3 @@ Ada
 ## License
 
 This project is licensed under the [GNU General Public License v3.0] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
