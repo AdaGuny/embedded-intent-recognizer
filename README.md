@@ -8,6 +8,9 @@ A simple embedded intetn recognition tool using pybind11 and cpp to run a simple
 
 The script uses a deep-pre trained transformer architecture-based model for feature extraction (distill-BERT in our case) and predicts the multitask intent using a trained probabilistic classifier (random forest in our case).  
 
+Explanation in
+[@notebook](https://github.com/AdaGuny/embedded-intent-recognizer/blob/main/python%20class/Multioutput%20text%20classification.ipynb)
+
 ## Getting Started
 
 ### Dependencies
